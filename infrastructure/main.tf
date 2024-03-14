@@ -3,31 +3,31 @@ provider "azurerm" {
 }
 
 resource "azurerm_resource_group" "example" {
-  name     = "my-resource-group"
+  name     = "odoo-prod-rg"
   location = "West US"
 }
 
 resource "azurerm_virtual_network" "example" {
-  name                = "my-virtual-network"
+  name                = "odoo-prod-vnet"
   address_space       = ["10.0.0.0/16"]
   location            = azurerm_resource_group.example.location
   resource_group_name = azurerm_resource_group.example.name
 }
 
 resource "azurerm_subnet" "example" {
-  name                 = "my-subnet"
+  name                 = "odoo-prod-subnet"
   resource_group_name  = azurerm_resource_group.example.name
   virtual_network_name = azurerm_virtual_network.example.name
   address_prefixes     = ["10.0.1.0/24"]
 }
 
 resource "azurerm_network_interface" "example" {
-  name                = "my-network-interface"
+  name                = "odoo-prod-nic"
   location            = azurerm_resource_group.example.location
   resource_group_name = azurerm_resource_group.example.name
 
   ip_configuration {
-    name                          = "my-ip-configuration"
+    name                          = "odoo-prod-nic-ip"
     subnet_id                     = azurerm_subnet.example.id
     private_ip_address_allocation = "Dynamic"
   }
