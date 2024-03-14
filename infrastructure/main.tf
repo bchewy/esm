@@ -1,9 +1,10 @@
 provider "azurerm" {
-  features {}
-  # skip_provider_registration = true # this is true due to comments below.. read!
+  features {
+    resource_group {
+      prevent_deletion_if_contains_resources = false
+    }
+  }
   subscription_id = "6d07e33b-f071-4121-9c74-7c575bafc191"
-  # This error is repeated for multiple Resource Providers, indicating that the service principal lacks the necessary permissions to register those providers in the specified subscription (4ede757d-fdc4-4b25-89e9-b1d5ff1d3b43).
-  # To resolve this issue, you need to ensure that the service principal has the appropriate role assignment in the Azure subscription that grants it the required permissions to register Resource Providers. Typically, this can be achieved by assigning the "Reader and Data Access" or a similar role to the service principal at the subscription level.
 }
 
 resource "azurerm_resource_group" "odoo-rg" {

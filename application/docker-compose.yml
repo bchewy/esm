@@ -10,7 +10,6 @@ services:
     volumes:
       - odoo-data:/var/lib/odoo
       - ./addons:/mnt/extra-addons
-      - ./data:/var/lib/odoo
     environment:
       - POSTGRES_USER=odoo
       - POSTGRES_PASSWORD=odoo
