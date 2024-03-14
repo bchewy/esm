@@ -22,7 +22,11 @@ services:
     environment:
       - POSTGRES_USER=odoo
       - POSTGRES_PASSWORD=odoo
-      - POSTGRES_DB=postgres
+      - POSTGRES_DB=odoo
+    volumes:
+      - ./dump.sql:/dump.sql
+      - ./dump.dump:/dump.dump
+      
   # nginx:
   #   image: nginx:latest
   #   ports:
