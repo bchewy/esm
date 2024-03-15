@@ -39,7 +39,8 @@ jobs:
     needs: build_and_test
     steps:
       - name: Deploy to Staging
-        run: # Add your deployment script here
+        run: |
+          ssh user@123.123.123.123 'bash -s' < user_data.sh
       - name: Wait for manual approval
         uses: actions/manual-approval@latest
         with:
@@ -50,5 +51,5 @@ jobs:
     needs: deploy_to_staging
     if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
     steps:
-      - name: Deploy to Production
-        run: # Add your production deployment script here
+      # - name: Deploy to Production
+      #   run: ssh user@123.123.123.125 'bash -s' < user_data.sh
