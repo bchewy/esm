@@ -128,10 +128,48 @@ resource "azurerm_lb_rule" "odoo-frontend-http-rule" {
   name                           = "odoo-frontend-http-rule"
   loadbalancer_id                = azurerm_lb.odoo-prod-lb.id
   protocol                       = "Tcp"
-  frontend_port                  = 80
-  backend_port                   = 80 // Assuming your VM serves HTTP traffic on port 80; adjust if different.
+  frontend_port                  = 8069
+  backend_port                   = 8069 // Assuming your VM serves HTTP traffic on port 80; adjust if different.
   frontend_ip_configuration_name = "odoo-prod-lb-frontip"
   // probe_id is optional, depends if you have a specific health check for HTTP
 }
+
+
+# create virtual machine scale sets to be placed in front of my our frontend load balancer here:
+resource "azurerm_linux_virtual_machine_scale_set" "odoo-prod-vmss" {
+  name                = "odoo-prod-vmss"
+  resource_group_name = azurerm_resource_group.odoo-rg.name
+  location            = azurerm_resource_group.odoo-rg.location
+  sku                 = "Standard_D2s_v3"
+  instances           = 2
+  admin_username      = "is214"
+  admin_password      = "brian134!"
+
+  source_image_reference {
+    publisher = "Canonical"
+    offer     = "0001-com-ubuntu-server-jammy"
+    sku       = "22_04-lts"
+    version   = "latest"
+  }
+
+  os_disk {
+    storage_account_type = "Standard_LRS"
+    caching              = "ReadWrite"
+  }
+
+  network_interface {
+    name    = "odoo-prod-vmss-nic"
+    primary = true
+
+    ip_configuration {
+      name                                   = "internal"
+      primary                                = true
+      subnet_id                              = azurerm_subnet.odoo-subnet.id
+      load_balancer_backend_address_pool_ids = [azurerm_lb_backend_address_pool.odoo-prod-bap.id]
+    }
+  }
+}
+
+
 
 
