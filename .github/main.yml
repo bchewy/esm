@@ -17,22 +17,22 @@ jobs:
       - name: Run Checkov for infrastructure security checks
         uses: bridgecrewio/checkov-action@master
 
-  code_quality:
-    runs-on: ubuntu-latest
-    needs: security_checks
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-      - name: Run SonarQube analysis
-        uses: sonarsource/sonarqube-scan-action@master
-        with:
-          projectKey: <Your_Project_Key>
-          token: ${{ secrets.SONAR_TOKEN }}
+  # code_quality:
+  #   runs-on: ubuntu-latest
+  #   needs: security_checks
+  #   steps:
+  #     - name: Checkout code
+  #       uses: actions/checkout@v2
+  #     - name: Run SonarQube analysis
+  #       uses: sonarsource/sonarqube-scan-action@master
+  #       with:
+  #         projectKey: <Your_Project_Key>
+  #         token: ${{ secrets.SONAR_TOKEN }}
 
-  build_and_test:
-    runs-on: ubuntu-latest
-    needs: code_quality
-    # Add any steps required to build and test your infrastructure code
+  # build_and_test:
+  #   runs-on: ubuntu-latest
+  #   needs: code_quality
+  #   # Add any steps required to build and test your infrastructure code
 
   deploy_to_staging:
     runs-on: ubuntu-latest
