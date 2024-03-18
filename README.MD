@@ -24,6 +24,4 @@ Devops Approach:
 ![Image](devops.jpg)
 
 ### Improvements to be made:
-- Storing of terraform state using blob storage 
-https://learn.microsoft.com/en-us/azure/developer/terraform/store-state-in-azure-storage?tabs=terraform
-
+- Storing of terraform state using blob storage (this is not possible with a student email, and has to be done with an individual access account on Azure - due to the requirement of needing Microsoft Entra.)
