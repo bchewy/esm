@@ -1,0 +1,23 @@
+version: "3"
+volumes:
+  odoo-data:
+services:
+  odoo:
+    image: odoo:16
+    ports:
+      - 8069:8069
+      - 8072:8072
+    volumes:
+      - odoo-data:/var/lib/odoo
+      - ./addons:/mnt/extra-addons
+    environment:
+      - HOST=odoo-pogstgres-staging.postgres.database.azure.com
+      - USER=is214
+      - PASSWORD=brian134!
+      - DATABASE=odoo_actual
+      - POSTGRES_USER=odoo
+      - POSTGRES_PASSWORD=odoo
+      - PGDATA=/var/lib/postgresql/data/pgdata
+      - ODOO_RC=/etc/odoo/odoo.conf
+    depends_on:
+      - db
