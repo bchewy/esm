@@ -14,18 +14,31 @@ wget https://bchewy.s3.ap-southeast-1.amazonaws.com/docker-compose.yml
 wget -O dump.dump https://bchewy.s3.ap-southeast-1.amazonaws.com/Odoo+CRM+dump+Mar+14+2024.dump
 docker compose up --build -d
 
-# Seed the database with the latest dump.
+# Only for the first machine on the database. , Seed the database with the latest dump.
+sudo apt install postgresql-client-common -y
+sudo apt-get install postgresql-client -y
 
-psql -U is214 -c 'CREATE DATABASE odoo_actual;'
-psql -U is214 -d odoo_actual -c "CREATE ROLE odoo16 WITH LOGIN;"
-pg_restore -U is214 -d odoo_actual dump.dump # in CLI
+export PGHOST=odoo-pogstgres-dev.postgres.database.azure.com
+export PGUSER=is214
+export PGPORT=5432
+export PGDATABASE=postgres
+export PGPASSWORD="brian134!" 
 
+# Check if database odoo_actual already exists
+if psql -U is214 -lqt | cut -d \| -f 1 | grep -qw odoo_actual; then
+    echo "Database odoo_actual already exists. Skipping creation."
+else
+    # Create database odoo_actual
+    psql -U is214 -c 'CREATE DATABASE odoo_actual;'
+    psql -U is214 -d odoo_actual -c "CREATE ROLE odoo16 WITH LOGIN;"
+    `pg_restore -U is214 -d odoo_actual dump.dump
+fi
 
-
+# psql -U is214 -c 'CREATE DATABASE odoo_actual;'
+# psql -U is214 -d odoo_actual -c "CREATE ROLE odoo16 WITH LOGIN;"
+# pg_restore -U is214 -d odoo_actual dump.dump # in CLI
 # Rest till docker-compose is up; 5 mins - needs time to deploy
 # sleep 120
-
-
 # Previous docker ones
 # docker exec is214-db-1 psql -U is214 -c 'CREATE DATABASE odoo_actual;'
 # docker exec is214-db-1 psql -U odoo -c "CREATE ROLE odoo16 WITH LOGIN;"
