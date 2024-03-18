@@ -24,9 +24,9 @@ provider "azurerm" {
 #   source = "./modules/states"
 # }
 
-module "dev" {
-  source = "./modules/0-dev"
-}
+# module "dev" {
+#   source = "./modules/0-dev"
+# }
 
 # module "test" {
 #   source = "./modules/1-test"
@@ -36,6 +36,6 @@ module "dev" {
 #   source = "./modules/2-staging"
 # }
 
-# module "prod" {
-#   source = "./modules/3-prod"
-# }
+module "prod" {
+  source = "./modules/3-prod"
+}
