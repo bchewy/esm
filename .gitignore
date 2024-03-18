@@ -7,3 +7,4 @@ infrastructure/modules/.terraform/*
 .tfstate
 infrastructure/.terraform/*
 infrastructure/terraform.tfstate
+.DS_Store
