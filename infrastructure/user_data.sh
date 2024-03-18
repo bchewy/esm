@@ -9,7 +9,9 @@ newgrp docker
 
 # CHANGE TO UBUNTU DIRECTORY, DOWNLOAD DOCKER-COMPOSE FILE AND DUMP
 cd /home/is214
-wget https://bchewy.s3.ap-southeast-1.amazonaws.com/docker-compose.yml
+wget -O docker-compose.yml https://bchewy.s3.ap-southeast-1.amazonaws.com/docker-compose.yml # Dev
+# wget -O docker-compose.yml https://bchewy.s3.ap-southeast-1.amazonaws.com/docker-compose-staging.yml # Staging
+# wget -O docker-compose.yml https://bchewy.s3.ap-southeast-1.amazonaws.com/docker-compose-prod.yml # Prod
 # TODO: Applicaiton Team to replace dump.dump with the latest dump on March 19.
 wget -O dump.dump https://bchewy.s3.ap-southeast-1.amazonaws.com/Odoo+CRM+dump+Mar+14+2024.dump
 docker compose up --build -d
@@ -19,6 +21,8 @@ sudo apt install postgresql-client-common -y
 sudo apt-get install postgresql-client -y
 
 export PGHOST=odoo-pogstgres-dev.postgres.database.azure.com
+# export PGHOST=odoo-pogstgres-staging.postgres.database.azure.com
+# export PGHOST=odoo-pogstgres-prod.postgres.database.azure.com
 export PGUSER=is214
 export PGPORT=5432
 export PGDATABASE=postgres
