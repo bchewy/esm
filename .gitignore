@@ -6,3 +6,4 @@ terraform.tfstate.backup
 infrastructure/modules/.terraform/*
 .tfstate
 infrastructure/.terraform/*
+infrastructure/terraform.tfstate
