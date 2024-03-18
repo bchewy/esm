@@ -9,18 +9,18 @@ newgrp docker
 
 # CHANGE TO UBUNTU DIRECTORY, DOWNLOAD DOCKER-COMPOSE FILE AND DUMP
 cd /home/is214
-wget -O docker-compose.yml https://bchewy.s3.ap-southeast-1.amazonaws.com/docker-compose.yml # Dev
+# wget -O docker-compose.yml https://bchewy.s3.ap-southeast-1.amazonaws.com/docker-compose.yml # Dev
 # wget -O docker-compose.yml https://bchewy.s3.ap-southeast-1.amazonaws.com/docker-compose-staging.yml # Staging
-# wget -O docker-compose.yml https://bchewy.s3.ap-southeast-1.amazonaws.com/docker-compose-prod.yml # Prod
+wget -O docker-compose.yml https://bchewy.s3.ap-southeast-1.amazonaws.com/docker-compose-prod.yml # Prod
 # TODO: Applicaiton Team to replace dump.dump with the latest dump on March 19.
 wget -O dump.dump https://bchewy.s3.ap-southeast-1.amazonaws.com/Odoo+CRM+dump+Mar+14+2024.dump
 docker compose up --build -d
 
 # Only for the first machine on the database. , Seed the database with the latest dump.
-sudo apt install postgresql-client-common -y
-sudo apt-get install postgresql-client -y
+sudo apt install postgresql-client-common
+sudo apt-get install postgresql-client 
 
-export PGHOST=odoo-pogstgres-dev.postgres.database.azure.com
+export PGHOST=odoo-pogstgres-prod.postgres.database.azure.com
 # export PGHOST=odoo-pogstgres-staging.postgres.database.azure.com
 # export PGHOST=odoo-pogstgres-prod.postgres.database.azure.com
 export PGUSER=is214
@@ -35,7 +35,7 @@ else
     # Create database odoo_actual
     psql -U is214 -c 'CREATE DATABASE odoo_actual;'
     psql -U is214 -d odoo_actual -c "CREATE ROLE odoo16 WITH LOGIN;"
-    `pg_restore -U is214 -d odoo_actual dump.dump
+    pg_restore -U is214 -d odoo_actual dump.dump
 fi
 
 # psql -U is214 -c 'CREATE DATABASE odoo_actual;'
