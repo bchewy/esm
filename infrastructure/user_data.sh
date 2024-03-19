@@ -17,8 +17,8 @@ wget -O dump.dump https://bchewy.s3.ap-southeast-1.amazonaws.com/Odoo+CRM+dump+M
 docker compose up --build -d
 
 # Only for the first machine on the database. , Seed the database with the latest dump.
-sudo apt install postgresql-client-common
-sudo apt-get install postgresql-client 
+sudo apt install postgresql-client-common -y
+sudo apt-get install postgresql-client -y
 
 export PGHOST=odoo-pogstgres-prod.postgres.database.azure.com
 # export PGHOST=odoo-pogstgres-staging.postgres.database.azure.com
