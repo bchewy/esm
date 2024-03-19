@@ -19,5 +19,3 @@ services:
       - POSTGRES_PASSWORD=odoo
       - PGDATA=/var/lib/postgresql/data/pgdata
       - ODOO_RC=/etc/odoo/odoo.conf
-    depends_on:
-      - db

@@ -20,9 +20,10 @@ docker compose up --build -d
 sudo apt install postgresql-client-common -y
 sudo apt-get install postgresql-client -y
 
-export PGHOST=odoo-pogstgres-prod.postgres.database.azure.com
+
 # export PGHOST=odoo-pogstgres-staging.postgres.database.azure.com
 # export PGHOST=odoo-pogstgres-prod.postgres.database.azure.com
+export PGHOST=odoo-pogstgres-prod.postgres.database.azure.com
 export PGUSER=is214
 export PGPORT=5432
 export PGDATABASE=postgres
