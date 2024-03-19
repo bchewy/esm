@@ -320,6 +320,8 @@ resource "azurerm_postgresql_flexible_server" "postgres_instance" {
   storage_tier = "P30"
 
   sku_name = "GP_Standard_D2s_v3"
+
+  depends_on = [azurerm_linux_virtual_machine_scale_set.odoo-prod-vmss]
 }
 
 resource "azurerm_postgresql_flexible_server_firewall_rule" "allow_all" {
