@@ -231,7 +231,7 @@ resource "azurerm_lb_probe" "odoo-prod-lb-probe" {
   name                = "odoo-prod-lb-probe"
   loadbalancer_id     = azurerm_lb.odoo-prod-lb.id
   protocol            = "Http"
-  port                = 80
+  port                = 8069
   request_path        = "/"
   interval_in_seconds = 5
   number_of_probes    = 2
@@ -255,7 +255,7 @@ resource "azurerm_lb_rule" "odoo-frontend-http-rule" {
   name                           = "odoo-frontend-http-rule"
   loadbalancer_id                = azurerm_lb.odoo-prod-lb.id
   protocol                       = "Tcp"
-  frontend_port                  = 8069
+  frontend_port                  = 80
   backend_port                   = 8069
   frontend_ip_configuration_name = "odoo-prod-lb-frontip"
   disable_outbound_snat          = true
@@ -270,7 +270,7 @@ resource "azurerm_linux_virtual_machine_scale_set" "odoo-prod-vmss" {
   resource_group_name             = azurerm_resource_group.odoo-rg.name
   location                        = azurerm_resource_group.odoo-rg.location
   sku                             = "Standard_D2s_v3"
-  instances                       = 1
+  instances                       = 2
   admin_username                  = "is214"
   admin_password                  = "brian134!"
   disable_password_authentication = false
