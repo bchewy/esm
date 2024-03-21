@@ -230,7 +230,7 @@ resource "azurerm_lb_backend_address_pool" "odoo-prod-bap" {
 resource "azurerm_lb_probe" "odoo-prod-lb-probe" {
   name                = "odoo-prod-lb-probe"
   loadbalancer_id     = azurerm_lb.odoo-prod-lb.id
-  protocol            = "TCP"
+  protocol            = "Tcp"
   port                = 8069
   request_path        = "/"
   interval_in_seconds = 5
